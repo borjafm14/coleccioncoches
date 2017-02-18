@@ -24,6 +24,8 @@ $(document).ready(function(){
         addElement();
     });
 
+    $('#type').material_select();
+
 
 
 });
