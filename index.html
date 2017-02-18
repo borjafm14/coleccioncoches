@@ -43,7 +43,7 @@
           </div>
           <div class="input-field col s12">
             <input id="foto" type="text" class="validate">
-            <label for="foto">Enlace a foto</label>
+            <label for="foto">Enlace a foto*</label>
           </div>
           <span>
             <label> <u><a id="help" href="http://www.google.es" target="_blank" class="link black-text">Cómo conseguir el enlace a la foto en Google Drive</a></u></label>
@@ -98,18 +98,36 @@
 
           <div id="filters" class="checkbox_filters col s4">
             <span>
-              <input type="checkbox" id="rally" />
+              <input type="checkbox" id="rally" class="validate"/>
               <label for="rally">Rally</label>
             </span>
 
             <span>
-              <input type="checkbox" id="circuito" />
+              <input type="checkbox" id="circuito" class="validate"/>
               <label for="circuito">Circuito</label>
             </span>
 
             <span>
-              <input type="checkbox" id="calle" />
+              <input type="checkbox" id="calle" class="validate"/>
               <label for="calle">Calle</label>
+            </span>
+          </div>
+
+
+          <div id="filters" class="checkbox_filters col s4">
+            <span>
+              <input name="group1" type="radio" id="hoy" class="validate"/>
+              <label for="hoy">Añadidos hoy</label>
+            </span>
+
+            <span>
+              <input name="group1" type="radio" id="ultimoMes" class="validate"/>
+              <label for="ultimoMes">Añadidos este mes</label>
+            </span>
+
+            <span>
+              <input name="group1" type="radio" id="siempre" class="validate"/>
+              <label for="siempre">Todos</label>
             </span>
           </div>
 
