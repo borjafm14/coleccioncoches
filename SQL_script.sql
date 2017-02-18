@@ -41,11 +41,13 @@ create procedure CARS__insert
 	@descripcion nvarchar(max) null
 AS
 BEGIN
-INSERT INTO [dbo].[cars](
+INSERT INTO [dbo].[CARS](
 marca, modelo, nacionalidad_coche, year, enlace_foto, tipo, competicion, categoria, piloto, nacionalidad_piloto, copiloto, nacionalidad_copiloto, precio, fabricante, descripcion
 )
 VALUES
 (@marca, @modelo, @nacionalidad_coche, @year, @enlace_foto, @tipo, @competicion, @categoria, @piloto, @nacionalidad_piloto, @copiloto, @nacionalidad_copiloto, @precio, @fabricante, @descripcion)
+
+SELECT * FROM CARS WHERE ID = SCOPE_IDENTITY();
 
 RETURN 200
 
@@ -75,122 +77,6 @@ CREATE PROCEDURE CARS__list
 AS
 BEGIN
 
-IF(@year = 0 AND @precio = 0)
-	BEGIN
-	--NO BUSCO NI POR AÑO NI POR PRECIO
-
-		IF(@desde = 'hoy')
-			BEGIN
-			
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(day, -1, GETDATE())
-			END
-		ELSE IF(@desde = 'ultimoMes')
-			BEGIN
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(month, -1, GETDATE())
-			END
-		ELSE 
-			--SIEMRPE
-			BEGIN
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and fabricante like '%'+@fabricante+'%' 		
-			END
-			
-	END
-ELSE IF(@year = 0 AND @precio <> 0)
-	BEGIN
-	--NO BUSCO POR AÑO
-			
-		IF(@desde = 'hoy')
-			BEGIN
-			
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and precio = @precio and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(day, -1, GETDATE())
-			END
-		ELSE IF(@desde = 'ultimoMes')
-			BEGIN
-
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and precio = @precio and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(month, -1, GETDATE())
-			END
-		ELSE 
-			--SIEMPRE
-			BEGIN
-
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and precio = @precio and fabricante like '%'+@fabricante+'%' 
-			END
-	END
-ELSE IF(@year <> 0 AND @precio = 0)
-	BEGIN
-		--NO BUSCO POR PRECIO
-			
-		IF(@desde = 'hoy')
-			BEGIN
-			
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year = @year and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(day, -1, GETDATE())
-			END
-		ELSE IF(@desde = 'ultimoMes')
-			BEGIN
-
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year = @year and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(month, -1, GETDATE())
-			END
-		ELSE
-			--siempre
-			BEGIN
-
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year = @year and fabricante like '%'+@fabricante+'%' 
-			END
-	END
-ELSE
-	BEGIN
-	--BUSCO POR TODO
 			
 		IF(@desde = 'hoy')
 			BEGIN
@@ -223,7 +109,6 @@ ELSE
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
 					and year = @year and precio = @precio and fabricante like '%'+@fabricante+'%' 
 			END
-	END
 
 END
 
