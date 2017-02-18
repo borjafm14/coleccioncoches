@@ -7,64 +7,100 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://use.fontawesome.com/899c17fe12.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="js/stream.js"></script>
+    <!--<script src="js/index.js"></script>-->
     <link rel="stylesheet" type="text/css" href="css/home.css">
   </head>
   <body>
     <header>
     </header>
     <main>
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Añadir coche</h4><br>
+          <div class="input-field col s12">
+            <select id="type">
+              <option value="_TwID">@User</option>
+              <option value="_Hastag">#Hashtag</option>
+              <option value="_FreeText">Text</option>
+            </select>
+            <label>Tipo</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="value" type="text" class="validate">
+            <label for="Value">Value *</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a id="add" href="#!" class=" modal-action modal-close waves-effect waves-blue btn-flat">Añadir</a>
+        </div>
+      </div>
+
+      <div id="modal2" class="modal">
+        <div class="modal-content">
+          <h4>Buscar coches</h4><br>
+          <div class="input-field col s12">
+            <select id="type">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="_TwID">@User</option>
+              <option value="_Hastag">#Hashtag</option>
+              <option value="_FreeText">Text</option>
+            </select>
+            <label>Element type</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="value" type="text" class="validate">
+            <label for="Value">Value *</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a id="search" href="#!" class=" modal-action modal-close waves-effect waves-blue btn-flat">Buscar</a>
+        </div>
+      </div>
+
+
       <div class="row light-blue">
-        <div id="top-menu" class="col s12 PBlue">
-          <a href="/"><img class="responsive-img logo-small" src="img/logo-small.png"></a>
+        <div id="top-menu" class="col s12  blue-grey darken-4">
+          <a href="/"><img class="responsive-img logo-small" src="img/logo-small.jpg"></a>
+
           <ul class="collapsible collapsible-accordion">
-            <ul id="filters-top-menu-stream" class="dropdown-content">
-              <li class="whitec"><a aonclick="filter_logs()" href="#!">ALL</a></li>
-              <li class="whitec"><a onclick="filter_logs('_Twit')" href="#!">Tweet</a></li>
-              <li class="whitec"><a onclick="filter_logs('_RT')" href="#!">Re-Tweet</a></li>
-              <li class="whitec"><a onclick="filter_logs('_FV')" href="#!">Favorite</a></li>
-              <li class="whitec"><a onclick="filter_logs('_UnFV')" href="#!">Un-Favorite</a></li>
-              <li class="whitec"><a onclick="filter_logs('_Delete')" href="#!">Delete</a></li>
-              <li class="whitec"><a onclick="filter_logs('_UserUpdate')" href="#!">User Update</a></li>
-              <li class="whitec"><a onclick="filter_logs('_Follow')" href="#!">Follows</a></li>
-              <li class="whitec"><a onclick="filter_logs('_UnFollow')" href="#!">Un-Follows</a></li>
-            </ul>
-            <li><a class="collapsible-header white-text waves-effect waves-blue PPurple modal-trigger dropdown-button" href="#!" data-activates="filters-top-menu-stream">Filters</a></li>
+            <li><a class="collapsible-header black-text waves-effect waves-blue red accent-2" href="#modal1">Añadir coche</a></li>
+          </ul>
+          <ul class="collapsible collapsible-accordion">
+            <li><a class="collapsible-header black-text waves-effect waves-blue red accent-2" href="#modal2">Buscar coches</a></li>
+          </ul>
+          <ul class="collapsible collapsible-accordion">
+            <li><a id="search" class="collapsible-header black-text waves-effect waves-blue red accent-2" href="#!">Ver últimos añadidos</a></li>
           </ul>
         </div>
-        <div id="menu" class="col s12 m3 l2 PBlue center-align">
-          <a href="/"><div class="logo z-depth-1"><img class="responsive-img s2" src="img/logo.png"></div></a>
+
+
+        <div id="menu" class="col s12 m3 l3  blue-grey darken-4 center-align">
+          <a href="/"><div class="logo z-depth-1"><img class="responsive-img s12" src="img/logo-small.jpg"></div></a>
+          
           <ul class="collapsible collapsible-accordion">
-            <ul id="filters-top-menu" class="dropdown-content">
-              <li class="whitec"><a aonclick="filter_logs()" href="#!">ALL</a></li>
-              <li class="whitec"><a onclick="filter_logs('_Twit')" href="#!">Tweet</a></li>
-              <li class="whitec"><a onclick="filter_logs('_RT')" href="#!">Re-Tweet</a></li>
-              <li class="whitec"><a onclick="filter_logs('_FV')" href="#!">Favorite</a></li>
-              <li class="whitec"><a onclick="filter_logs('_UnFV')" href="#!">Un-Favorite</a></li>
-              <li class="whitec"><a onclick="filter_logs('_Delete')" href="#!">Delete</a></li>
-              <li class="whitec"><a onclick="filter_logs('_UserUpdate')" href="#!">User Update</a></li>
-              <li class="whitec"><a onclick="filter_logs('_Follow')" href="#!">Follows</a></li>
-              <li class="whitec"><a onclick="filter_logs('_UnFollow')" href="#!">Un-Follows</a></li>
-            </ul>
-            <li><a class="collapsible-header white-text waves-effect waves-blue PPurple modal-trigger dropdown-button" href="#!" data-activates="filters-top-menu">Filters</a></li>
+            <li><a class="collapsible-header black-text waves-effect waves-blue red accent-2" href="#modal1">Añadir coche<i class="material-icons right">add</i></a></li>
           </ul>
-          <div class="credits">Handmade by <br> César Gutiérrez Pérez <br> Borja Fernández Morán</div>
+
+          <ul class="collapsible collapsible-accordion">
+            <li><a class="collapsible-header black-text waves-effect waves-blue red accent-2" href="#modal2">Buscar coches<i class="material-icons right">search</i></a></li>
+          </ul>
+          <ul class="collapsible collapsible-accordion">
+            <li><a id="search" class="collapsible-header black-text waves-effect waves-blue red accent-2" href="#!">Ver últimos añadidos<i class="material-icons right">visibility</i></a></li>
+          </ul>
+
+          <div class="credits" id="info"></div>
         </div>
-        <div id="menu-spacer" class="col s12 m3 l2"></div>
-        <div id="feed" class="col s12 m5 l4 PBlues">
-          <a id="play" class="btn-floating btn waves-effect waves-light PBlue"><i class="material-icons">pause</i></a>
-          <h5 id="counter" class="white-text">Loading..
-            <div id="progressbar" class="progress PPurple">
-                <div class="indeterminate pink accent-2"></div>
+        <div id="menu-spacer" class="col s12 m3 l3"></div>
+        <div id="body-content" class="col s12 m9 l9 white">
+          <h4 class="black-text center-align" id="title">Últimos coches añadidos</h4>
+          <div id="elements">
+            <center>
+              <div class="progress red accent-3">
+                  <div class="indeterminate  red accent-1"></div>
+              </div>
+            </center>
             </div>
-          </h5>
-          <div id="tweets"></div>
-        </div>
-        <div id="details" class="col s12 m4 l6 blue accent-1">
-
-            <!-- put placeholder image -->
-
+          </div>
         </div>
       </div>
     </main>

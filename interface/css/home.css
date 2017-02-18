@@ -1,0 +1,271 @@
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  footer.page-footer{
+    padding: 10px 0px;
+    margin:0px;
+  }
+
+  .utitle{
+    max-width:100px;
+    max-height:100px;
+    float:left;
+    margin-right:10px;
+    margin-bottom:10px;
+  }
+
+  .card-image img{
+    max-height:270px;
+  }
+
+  .row{
+    margin-bottom: 0px;
+  }
+
+  .PBlue{
+    background-color:#485D89;
+  }
+
+  .PPurple{
+    background-color: #800061;
+  }
+
+  .PBlues{
+    background-color: #6ba4ff;
+  }
+
+  .logo{
+    background: #fff;
+    padding: 0px;
+    border-radius: 3px;
+  }
+
+  .logo-small{
+    background: #fff;
+    padding: 0px;
+    border-radius: 3px;
+    width: 100px;
+  }
+
+
+  .collapsible{
+    border:0px;
+    margin: 15px 0;
+  }
+
+  .collapsible-header {
+    border-bottom: 0px;
+  }
+
+  .collapsible-body {
+    border-bottom: 0;
+    background:#fff;
+  }
+
+  .collapsible-body li{
+    padding:10px;
+  }
+
+  .collapsible-body li:hover{
+    background: #82B1FF;
+    cursor: pointer;
+  }
+
+  .credits{
+    position: absolute;
+    width:calc(100% - 30px);
+    display:block;
+    bottom:0px;
+    left:0px;
+    padding:15px;
+    margin:15px;
+    background: #fff;
+    border-radius:3px;
+    z-index:10;
+  }
+
+/* Menu */
+  #menu{
+    padding-top:15px;
+    height: calc(100% - 0px);
+    position:fixed;
+  }
+
+  #top-menu{
+    padding-top:10px;
+    height:60px;
+    position:fixed;
+    z-index:100;
+  }
+
+  #top-menu ul{
+    /*display:inline;*/
+    float:right;
+    margin:0px;
+    margin-left:10px;
+    background:#800061;
+  }
+
+  .whitec{
+    background:#fff;
+  }
+
+  #top-menu .collapsible-header{
+    display:inline;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #menu{ display: none;}
+    #top-menu{ display: inline;}
+  }
+
+  @media only screen and (min-width: 601px) {
+    #top-menu{ display: none;}
+  }
+
+
+/* Feed */
+
+  #feed{
+    padding-top:15px;
+    min-height: calc(100% - 0px);
+  }
+
+  #feed .card-panel{
+    padding:10px;
+    margin: 0.25rem 0 0.5rem 0;
+  }
+
+  #feed span.content_stream{
+    cursor: pointer;
+  }
+
+  #feed .btn-floating i{
+    font-size:1.3rem;
+  }
+
+  #feed .btn-floating {
+    float:right;
+    margin-right:10px;
+  }
+
+  #feed h5 {
+    float:left;
+    margin-left:12px;
+    margin-top:5px;
+    margin-bottom:15px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #feed{
+      margin-top:59px;
+    }
+  }
+
+/* Details */
+
+  .pointer{
+    cursor:pointer;
+  }
+
+  #details{
+    min-height: calc(100% - 0px);
+    height:100%;
+    position:fixed;
+    right:1px;
+    z-index:100;
+    overflow-y:scroll;
+  }
+
+  #details::-webkit-scrollbar {
+      display: none;
+  }
+
+  #details .btn-floating i{
+    font-size:1.3rem;
+  }
+
+  #details .btn-floating {
+    float:right;
+    margin-top:15px;
+    margin-right: 12px;
+  }
+
+  #details-close{
+    display:none;
+  }
+
+  #open_details{
+    display:none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #details{ display:none;  margin-top:60px;}
+    #details-close{ display: inline; }
+    #open_details{ display: inline; }
+  }
+
+/* body */
+
+    #body-content{
+      min-height: calc(100% - 0px);
+      overflow:hidden;
+    }
+
+    #body-content .btn-ok {
+      float:right;
+      margin-top:15px;
+      margin-right: 12px;
+    }
+
+    #body-content .btn-ok i{
+      font-size:1.3rem;
+    }
+
+    #body-content h4{
+      margin-left:12px;
+      margin-top:15px;
+      margin-bottom:15px;
+    }
+
+    .element img{
+      max-width:48px;
+    }
+
+    .ele-text{
+      font-size:27px;
+    }
+
+    @media only screen and (max-width: 1400px) {
+      .ele-text{ font-size:21px; }
+    }
+    @media only screen and (max-width: 1250px) {
+      .ele-text{ font-size:15px; }
+      .row .col .s2{padding-left: 0px;}
+    }
+    @media only screen and (max-width: 990px) {
+      .ele-text{ font-size:19px; }
+    }
+    @media only screen and (max-width: 800px) {
+      .ele-text{ font-size:15px; }
+    }
+    @media only screen and (max-width: 600px) {
+      .ele-text{ font-size:23px; }
+    }
+
+    #elements .row{
+      text-align: center;
+    }
+
+    @media only screen and (max-width: 600px) {
+      #body-content{ margin-top:59px; padding-top:15px;}
+      #body-content h4{display:none;}
+    }
