@@ -94,14 +94,22 @@
       <div id="modal2" class="modal">
         <div class="modal-content">
           <h4>Buscar coches</h4><br>
-          <div class="input-field col s12">
-            <select id="type">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="_TwID">@User</option>
-              <option value="_Hastag">#Hashtag</option>
-              <option value="_FreeText">Text</option>
-            </select>
-            <label>Element type</label>
+
+          <div id="filters" class="checkbox_filters col s4">
+            <span>
+              <input type="checkbox" id="rally" />
+              <label for="rally">Rally</label>
+            </span>
+
+            <span>
+              <input type="checkbox" id="circuito" />
+              <label for="circuito">Circuito</label>
+            </span>
+
+            <span>
+              <input type="checkbox" id="calle" />
+              <label for="calle">Calle</label>
+            </span>
           </div>
           <div class="input-field col s12">
             <input id="value" type="text" class="validate">
@@ -109,7 +117,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a id="search" href="#!" class=" modal-action modal-close waves-effect waves-blue btn-flat">Buscar</a>
+          <a id="search" href="#!" class=" modal-action modal-close waves-effect waves-red btn red accent-2">Buscar</a>
         </div>
       </div>
 
