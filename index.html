@@ -19,18 +19,67 @@
           <h4>Añadir coche</h4><br>
           <div class="input-field col s12">
             <select id="type">
-              <option value="_TwID">@User</option>
-              <option value="_Hastag">#Hashtag</option>
-              <option value="_FreeText">Text</option>
+              <option value="1">Rally</option>
+              <option value="2">Circuito</option>
+              <option value="3">Calle</option>
             </select>
             <label>Tipo</label>
           </div>
           <div class="input-field col s12">
-            <input id="value" type="text" class="validate">
-            <label for="Value">Value *</label>
+            <input id="marca" type="text" class="validate">
+            <label for="marca">Marca*</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="modelo" type="text" class="validate">
+            <label for="modelo">Modelo*</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="year" type="text" class="validate">
+            <label for="year">Año</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="nacionalidad_coche" type="text" class="validate">
+            <label for="nacionalidad_coche">Nacionalidad coche</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="foto" type="text" class="validate">
+            <label for="foto">Enlace a foto</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="competicion" type="text" class="validate">
+            <label for="competicion">Rally/competición</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="categoria" type="text" class="validate">
+            <label for="categoria">Categoría</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="piloto" type="text" class="validate">
+            <label for="piloto">Piloto</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="nacionalidad_piloto" type="text" class="validate">
+            <label for="nacionalidad_piloto">Nacionalidad</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="copiloto" type="text" class="validate">
+            <label for="copiloto">Copiloto</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="nacionalidad_copiloto" type="text" class="validate">
+            <label for="nacionalidad_copiloto">Nacionalidad</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="precio" type="text" class="validate">€
+            <label for="precio">Precio (sin céntimos)</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="descripcion" type="text" class="validate">€
+            <label for="descripcion">Descripción</label>
           </div>
         </div>
         <div class="modal-footer">
+          <a id="help" href="www.google.es" target="_blank" class=" modal-action modal-close waves-effect waves-blue btn-flat">Cómo conseguir el enlace a la foto en Google Drive</a>
           <a id="add" href="#!" class=" modal-action modal-close waves-effect waves-blue btn-flat">Añadir</a>
         </div>
       </div>
