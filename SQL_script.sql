@@ -64,7 +64,9 @@ CREATE PROCEDURE CARS__list
 	@modelo nvarchar(max),
 	@nacionalidad_coche nvarchar(40),
 	@year int,
-	@tipo int,
+	@tipo1 int, --rally
+	@tipo2 int, --circuito
+	@tipo3 int, --calle
 	@competicion nvarchar(max),
 	@categoria nvarchar(max),
 	@piloto nvarchar(max),
@@ -82,7 +84,8 @@ BEGIN
 			BEGIN
 				
 				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
+					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' 
+					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3) 
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
@@ -92,7 +95,8 @@ BEGIN
 		ELSE IF(@desde = 'ultimoMes')
 			BEGIN
 				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
+					and nacionalidad_coche like '%'+@nacionalidad_coche+'%'
+					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3) 
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
@@ -103,7 +107,8 @@ BEGIN
 			--siempre
 			BEGIN
 				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' and tipo = @tipo 
+					and nacionalidad_coche like '%'+@nacionalidad_coche+'%'
+					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3) 
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
@@ -140,6 +145,30 @@ BEGIN
 
 RETURN 200
 
+END
+
+GO
+
+CREATE PROCEDURE CARS__get_info
+	@total int OUTPUT,
+	@rally int OUTPUT,
+	@circuito int OUTPUT,
+	@calle int OUTPUT
+AS
+BEGIN
+	SELECT * FROM CARS
+	SET @total = @@ROWCOUNT
+
+	SELECT * FROM CARS WHERE tipo = 1
+	SET @rally = @@ROWCOUNT
+
+	SELECT * FROM CARS WHERE tipo = 2
+	SET @circuito = @@ROWCOUNT
+
+	SELECT * FROM CARS WHERE tipo = 3
+	SET @calle = @@ROWCOUNT
+
+RETURN 200
 END
 
 GO

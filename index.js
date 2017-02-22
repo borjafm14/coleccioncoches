@@ -134,6 +134,13 @@ app.post('/add_element', function (req, res) {
         request.input('descripcion', sql.NVarChar, null);
       }
 
+      if(req.body.fabricante){
+        request.input('facbricante', sql.NVarChar, req.body.fabricante);
+      }
+      else{
+        request.input('fabricante', sql.NVarChar, null);
+      }
+
       request.execute('CARS__insert', function(err, recordsets, returnValue, affected) {
           if(!err){
             res.status(200).send(recordsets[0]);
@@ -150,6 +157,130 @@ app.post('/add_element', function (req, res) {
     res.status(400).send("Invalid arguments.");
   }
 
+
+});
+
+
+app.post('/list_elements', function(req,res){
+  var request = new sql.Request();
+    if(req.body.marca){
+      request.input('marca', sql.NVarChar, req.body.marca);
+    }
+    else{
+      request.input('modelo', sql.NVarChar, null);
+    }
+
+    if(req.body.modelo){
+      request.input('modelo', sql.NVarChar, req.body.modelo);
+    }
+    else{
+      request.input('modelo', sql.NVarChar, null);
+    }    
+
+    if(req.body.year){
+      request.input('year', sql.Int, req.body.year);
+    }
+    else{
+      request.input('year', sql.Int, null);
+    }
+      
+    if(req.body.nacionalidad_coche){
+      request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche);
+    }
+    else{
+      request.input('nacionalidad_coche', sql.NVarChar, null);
+    }
+
+    if(req.body.tipo1){
+      request.input('tipo1', sql.Int, 1);
+    }
+    else{
+      request.input('tipo1', sql.Int, null);
+    }
+
+    if(req.body.tipo1){
+      request.input('tipo2', sql.Int, 2);
+    }
+    else{
+      request.input('tipo2', sql.Int, null);
+    }
+
+    if(req.body.tipo1){
+      request.input('tipo3', sql.Int, 3);
+    }
+    else{
+      request.input('tipo3', sql.Int, null);
+    }
+
+    if(req.body.competicion){
+        request.input('competicion', sql.NVarChar, req.body.competicion);
+      }
+    else{
+      request.input('competicion', sql.NVarChar, null);
+    }
+
+    if(req.body.categoria){
+      request.input('categoria', sql.NVarChar, req.body.categoria);
+    }
+    else{
+      request.input('categoria', sql.NVarChar, null);
+    }
+      
+    if(req.body.piloto){
+       request.input('piloto', sql.NVarChar, req.body.piloto);
+    }
+    else{
+      request.input('piloto', sql.NVarChar, null);
+    }
+
+    if(req.body.nacionalidad_piloto){
+      request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto);
+    }
+    else{
+      request.input('nacionalidad_piloto', sql.NVarChar, null);
+    }
+
+    if(req.body.copiloto){
+      request.input('copiloto', sql.NVarChar, req.body.copiloto);
+    }
+    else{
+      request.input('copiloto', sql.NVarChar, null);
+    }
+
+    if(req.body.nacionalidad_copiloto){
+      request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto);
+    }
+    else{
+      request.input('nacionalidad_copiloto', sql.NVarChar, null);
+    }
+
+    if(req.body.precio){
+      request.input('precio', sql.Int, req.body.precio);
+    }
+    else{
+      request.input('precio', sql.Int, null);
+    }
+
+    if(req.body.fabricante){
+        request.input('facbricante', sql.NVarChar, req.body.fabricante);
+    }
+    else{
+      request.input('fabricante', sql.NVarChar, null);
+    }
+
+    request.input('desde', sql.NVarChar, req.body.desde);
+
+    request.execute('CARS__list', function(err, recordsets, returnValue, affected) {
+          if(!err){
+            res.status(200).send(recordsets[0]);
+          }
+          else{
+            res.status(400).send(err);
+          }
+
+      });
+     
+      
 
 });
 
@@ -174,3 +305,34 @@ app.post('/delete_element', function (req, res) {
    }
 
 });
+
+
+app.post('/get_info', function(req, res){
+  var request = new sql.Request();
+     request.output('total', sql.Int);
+     request.output('rally', sql.Int);
+     request.output('circuito', sql.Int);
+     request.output('calle', sql.Int);
+     request.execute('CARS__delete', function(err, recordsets, returnValue, affected) {
+       if(!err){
+
+         var info = {
+            request.parameters.total.value, 
+            request.parameters.rally.value,
+            request.parameters.circuito.value,
+            reques.parameters.calle.value
+          }
+
+          res.status(200).send(info);
+       }
+       else{
+          res.status(400).send(err);
+       }
+     });
+});
+
+
+
+
+
+console.log('Server running');
