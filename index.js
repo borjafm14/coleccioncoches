@@ -6,8 +6,8 @@ var server = require('http').Server(app);
 var sql = require('mssql');
 
 var vars = {
-   	domain:'https://coleccioncoches.azurewebsites.net/',
-   	server_port: 80,
+   	//domain:'https://coleccioncoches.azurewebsites.net/',
+   	server_port: 8080,
   	sql: null,
   	sql_config : {
     	user: 'borjafm14',
@@ -33,7 +33,7 @@ app.use(function(req, res, next) { //Allow cors (cross domain...)
 });
 
 
-app.use(express.static('/')); //Static server of the interface
+app.use(express.static('../coleccioncoches')); //Static server of the interface
 
 
 
@@ -55,6 +55,8 @@ app.get('/list_last_elements', function (req, res) {
 
 
 app.post('/add_element', function (req, res) {
+
+  //console.log("Entro en add add_element");
   //params obligatorios
   if(req.body.marca && req.body.modelo && req.body.enlace_foto && req.body.tipo){
 
@@ -143,7 +145,7 @@ app.post('/add_element', function (req, res) {
       }
 
       if(req.body.fabricante){
-        request.input('facbricante', sql.NVarChar, req.body.fabricante);
+        request.input('fabricante', sql.NVarChar, req.body.fabricante);
       }
       else{
         request.input('fabricante', sql.NVarChar, null);
@@ -151,10 +153,11 @@ app.post('/add_element', function (req, res) {
 
       request.execute('CARS__insert', function(err, recordsets, returnValue, affected) {
           if(!err){
-            console.log(recordsets);
-            //res.status(200).send(recordsets[0]);
+            //console.log(recordsets[0][0]);
+            res.status(200).send(recordsets[0][0]);
           }
           else{
+            console.log(err);
             res.status(400).send(err);
           }
 
