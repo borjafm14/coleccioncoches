@@ -4,6 +4,7 @@ CREATE TABLE CARS(
  modelo NVARCHAR(max) NOT NULL,
  nacionalidad_coche VARCHAR(40) NULL,
  year INT NULL,
+ campeonato NVARCHAR(max) NULL,
  competicion NVARCHAR(max) NULL, 
  categoria NVARCHAR(max) NULL,
  piloto NVARCHAR(max) NULL,
@@ -30,6 +31,7 @@ create procedure CARS__insert
 	@year int null,
 	@enlace_foto nvarchar(max),
 	@tipo int,
+	@campeonato nvarchar(max) null,
 	@competicion nvarchar(max) null,
 	@categoria nvarchar(max) null,
 	@piloto nvarchar(max) null,
@@ -42,10 +44,10 @@ create procedure CARS__insert
 AS
 BEGIN
 INSERT INTO [dbo].[CARS](
-marca, modelo, nacionalidad_coche, year, enlace_foto, tipo, competicion, categoria, piloto, nacionalidad_piloto, copiloto, nacionalidad_copiloto, precio, fabricante, descripcion
+marca, modelo, nacionalidad_coche, year, enlace_foto, tipo, campeonato, competicion, categoria, piloto, nacionalidad_piloto, copiloto, nacionalidad_copiloto, precio, fabricante, descripcion
 )
 VALUES
-(@marca, @modelo, @nacionalidad_coche, @year, @enlace_foto, @tipo, @competicion, @categoria, @piloto, @nacionalidad_piloto, @copiloto, @nacionalidad_copiloto, @precio, @fabricante, @descripcion)
+(@marca, @modelo, @nacionalidad_coche, @year, @enlace_foto, @tipo, @campeonato, @competicion, @categoria, @piloto, @nacionalidad_piloto, @copiloto, @nacionalidad_copiloto, @precio, @fabricante, @descripcion)
 
 SELECT * FROM CARS WHERE ID = SCOPE_IDENTITY();
 
@@ -67,6 +69,7 @@ CREATE PROCEDURE CARS__list
 	@tipo1 int, --rally
 	@tipo2 int, --circuito
 	@tipo3 int, --calle
+	@campeonato nvarchar(max),
 	@competicion nvarchar(max),
 	@categoria nvarchar(max),
 	@piloto nvarchar(max),
@@ -85,7 +88,8 @@ BEGIN
 				
 				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
 					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' 
-					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3) 
+					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
+					and campeonato like '%'+@campeonato+'%' 
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
@@ -96,7 +100,8 @@ BEGIN
 			BEGIN
 				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
 					and nacionalidad_coche like '%'+@nacionalidad_coche+'%'
-					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3) 
+					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
+					and campeonato like '%'+@campeonato+'%'  
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
@@ -108,7 +113,8 @@ BEGIN
 			BEGIN
 				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
 					and nacionalidad_coche like '%'+@nacionalidad_coche+'%'
-					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3) 
+					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
+					and campeonato like '%'+@campeonato+'%'  
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'

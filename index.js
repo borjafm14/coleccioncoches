@@ -44,7 +44,8 @@ app.get('/list_last_elements', function (req, res) {
    request.execute('CARS__list_last', function(err, recordsets, returnValue, affected) {
 
      if(!err){
-       res.status(200).send(JSON.stringify(recordsets[0]));
+        console.log(recordsets);
+       //res.status(200).send(JSON.stringify(recordsets));
      }else{
        res.status(400).send(err);
      }
@@ -77,6 +78,13 @@ app.post('/add_element', function (req, res) {
       
       request.input('tipo', sql.Int, req.body.tipo);
       request.input('enlace_foto', sql.NVarChar, req.body.enlace_foto);
+
+      if(req.body.campeonato){
+        request.input('campeonato', sql.NVarChar, req.body.campeonato);
+      }
+      else{
+        request.input('campeonato', sql.NVarChar, null);
+      }
 
       if(req.body.competicion){
         request.input('competicion', sql.NVarChar, req.body.competicion);
@@ -143,7 +151,8 @@ app.post('/add_element', function (req, res) {
 
       request.execute('CARS__insert', function(err, recordsets, returnValue, affected) {
           if(!err){
-            res.status(200).send(recordsets[0]);
+            console.log(recordsets);
+            //res.status(200).send(recordsets[0]);
           }
           else{
             res.status(400).send(err);
@@ -212,6 +221,13 @@ app.post('/list_elements', function(req,res){
       request.input('tipo3', sql.Int, null);
     }
 
+    if(req.body.campeonato){
+        request.input('campeonato', sql.NVarChar, req.body.campeonato);
+    }
+    else{
+      request.input('campeonato', sql.NVarChar, null);
+    }
+
     if(req.body.competicion){
         request.input('competicion', sql.NVarChar, req.body.competicion);
       }
@@ -272,7 +288,8 @@ app.post('/list_elements', function(req,res){
 
     request.execute('CARS__list', function(err, recordsets, returnValue, affected) {
           if(!err){
-            res.status(200).send(recordsets[0]);
+            console.log(recordsets);
+            //res.status(200).send(recordsets[0]);
           }
           else{
             res.status(400).send(err);
@@ -323,7 +340,8 @@ app.post('/get_info', function(req, res){
             reques.parameters.calle.value
           }
 
-          res.status(200).send(info);
+        console.log(info);
+        //res.status(200).send(info);
        }
        else{
           res.status(400).send(err);
