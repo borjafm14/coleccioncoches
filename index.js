@@ -333,14 +333,14 @@ app.post('/get_info', function(req, res){
      request.execute('CARS__delete', function(err, recordsets, returnValue, affected) {
        if(!err){
 
-         //var info = {
-            request.parameters.total.value;
-            request.parameters.rally.value;
-            request.parameters.circuito.value;
-            reques.parameters.calle.value;
-          //}
+         var info = {
+            total : request.parameters.total.value,
+            rally : request.parameters.rally.value,
+            circuito : request.parameters.circuito.value,
+            calle : request.parameters.calle.value
+          }
 
-        //console.log(info);
+        console.log(info);
         //res.status(200).send(info);
        }
        else{
