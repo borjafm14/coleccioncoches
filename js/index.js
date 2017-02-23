@@ -47,6 +47,19 @@ function searchElements(){
 
 
 function list(){
+    //alert("Entr en list");
+
+    $.get(rest+"/list_last_elements", function(data, status){
+
+      data = JSON.parse(data);
+      size = Object.keys(data).length;
+
+      $("#elements").empty();
+      for(i=0; i<size; i++){
+        //paint(data[i]);
+      }
+
+  });
 	
 }
 

@@ -39,14 +39,15 @@ app.use(express.static('../coleccioncoches')); //Static server of the interface
 
 
 app.get('/list_last_elements', function (req, res) {
-
+    //console.log("Entro en list_last_elements");
    var request = new sql.Request();
    request.execute('CARS__list_last', function(err, recordsets, returnValue, affected) {
 
      if(!err){
-        console.log(recordsets);
-       //res.status(200).send(JSON.stringify(recordsets));
+       //console.log(recordsets[0]);
+       res.status(200).send(JSON.stringify(recordsets));
      }else{
+        console.log(err);
        res.status(400).send(err);
      }
    });
@@ -61,8 +62,8 @@ app.post('/add_element', function (req, res) {
   if(req.body.marca && req.body.modelo && req.body.enlace_foto && req.body.tipo){
 
       var request = new sql.Request();
-      request.input('marca', sql.NVarChar, req.body.marca);
-      request.input('modelo', sql.NVarChar, req.body.modelo);
+      request.input('marca', sql.NVarChar, req.body.marca.toUpperCase());
+      request.input('modelo', sql.NVarChar, req.body.modelo.toUpperCase());
 
       if(req.body.year){
         request.input('year', sql.Int, req.body.year);
@@ -72,7 +73,7 @@ app.post('/add_element', function (req, res) {
       }
       
       if(req.body.nacionalidad_coche){
-        request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche);
+        request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche.toUpperCase());
       }
       else{
         request.input('nacionalidad_coche', sql.NVarChar, null);
@@ -82,49 +83,49 @@ app.post('/add_element', function (req, res) {
       request.input('enlace_foto', sql.NVarChar, req.body.enlace_foto);
 
       if(req.body.campeonato){
-        request.input('campeonato', sql.NVarChar, req.body.campeonato);
+        request.input('campeonato', sql.NVarChar, req.body.campeonato.toUpperCase());
       }
       else{
         request.input('campeonato', sql.NVarChar, null);
       }
 
       if(req.body.competicion){
-        request.input('competicion', sql.NVarChar, req.body.competicion);
+        request.input('competicion', sql.NVarChar, req.body.competicion.toUpperCase());
       }
       else{
         request.input('competicion', sql.NVarChar, null);
       }
 
       if(req.body.categoria){
-        request.input('categoria', sql.NVarChar, req.body.categoria);
+        request.input('categoria', sql.NVarChar, req.body.categoria.toUpperCase());
       }
       else{
         request.input('categoria', sql.NVarChar, null);
       }
       
       if(req.body.piloto){
-        request.input('piloto', sql.NVarChar, req.body.piloto);
+        request.input('piloto', sql.NVarChar, req.body.piloto.toUpperCase());
       }
       else{
         request.input('piloto', sql.NVarChar, null);
       }
 
       if(req.body.nacionalidad_piloto){
-        request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto);
+        request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto.toUpperCase());
       }
       else{
         request.input('nacionalidad_piloto', sql.NVarChar, null);
       }
 
       if(req.body.copiloto){
-        request.input('copiloto', sql.NVarChar, req.body.copiloto);
+        request.input('copiloto', sql.NVarChar, req.body.copiloto.toUpperCase());
       }
       else{
         request.input('copiloto', sql.NVarChar, null);
       }
 
       if(req.body.nacionalidad_copiloto){
-        request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto);
+        request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto.toUpperCase());
       }
       else{
         request.input('nacionalidad_copiloto', sql.NVarChar, null);
@@ -145,7 +146,7 @@ app.post('/add_element', function (req, res) {
       }
 
       if(req.body.fabricante){
-        request.input('fabricante', sql.NVarChar, req.body.fabricante);
+        request.input('fabricante', sql.NVarChar, req.body.fabricante.toUpperCase());
       }
       else{
         request.input('fabricante', sql.NVarChar, null);
