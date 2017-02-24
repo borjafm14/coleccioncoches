@@ -66,17 +66,17 @@ app.post('/add_element', function (req, res) {
       request.input('modelo', sql.NVarChar, req.body.modelo.toUpperCase());
 
       if(req.body.year){
-        request.input('year', sql.Int, req.body.year);
+        request.input('year', sql.NVarChar, req.body.year.toUpperCase());
       }
       else{
-        request.input('year', sql.Int, null);
+        request.input('year', sql.NVarChar, "");
       }
       
       if(req.body.nacionalidad_coche){
         request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche.toUpperCase());
       }
       else{
-        request.input('nacionalidad_coche', sql.NVarChar, null);
+        request.input('nacionalidad_coche', sql.NVarChar, "");
       }
       
       request.input('tipo', sql.Int, req.body.tipo);
@@ -86,70 +86,70 @@ app.post('/add_element', function (req, res) {
         request.input('campeonato', sql.NVarChar, req.body.campeonato.toUpperCase());
       }
       else{
-        request.input('campeonato', sql.NVarChar, null);
+        request.input('campeonato', sql.NVarChar, "");
       }
 
       if(req.body.competicion){
         request.input('competicion', sql.NVarChar, req.body.competicion.toUpperCase());
       }
       else{
-        request.input('competicion', sql.NVarChar, null);
+        request.input('competicion', sql.NVarChar, "");
       }
 
       if(req.body.categoria){
         request.input('categoria', sql.NVarChar, req.body.categoria.toUpperCase());
       }
       else{
-        request.input('categoria', sql.NVarChar, null);
+        request.input('categoria', sql.NVarChar, "");
       }
       
       if(req.body.piloto){
         request.input('piloto', sql.NVarChar, req.body.piloto.toUpperCase());
       }
       else{
-        request.input('piloto', sql.NVarChar, null);
+        request.input('piloto', sql.NVarChar, "");
       }
 
       if(req.body.nacionalidad_piloto){
         request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto.toUpperCase());
       }
       else{
-        request.input('nacionalidad_piloto', sql.NVarChar, null);
+        request.input('nacionalidad_piloto', sql.NVarChar, "");
       }
 
       if(req.body.copiloto){
         request.input('copiloto', sql.NVarChar, req.body.copiloto.toUpperCase());
       }
       else{
-        request.input('copiloto', sql.NVarChar, null);
+        request.input('copiloto', sql.NVarChar, "");
       }
 
       if(req.body.nacionalidad_copiloto){
         request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto.toUpperCase());
       }
       else{
-        request.input('nacionalidad_copiloto', sql.NVarChar, null);
+        request.input('nacionalidad_copiloto', sql.NVarChar, "");
       }
 
       if(req.body.precio){
-        request.input('precio', sql.Int, req.body.precio);
+        request.input('precio', sql.NVarChar, req.body.precio.toUpperCase());
       }
       else{
-        request.input('precio', sql.Int, null);
+        request.input('precio', sql.NVarChar, "");
       }
       
       if(req.body.descripcion){
         request.input('descripcion', sql.NVarChar, req.body.descripcion);
       }
       else{
-        request.input('descripcion', sql.NVarChar, null);
+        request.input('descripcion', sql.NVarChar, "");
       }
 
       if(req.body.fabricante){
         request.input('fabricante', sql.NVarChar, req.body.fabricante.toUpperCase());
       }
       else{
-        request.input('fabricante', sql.NVarChar, null);
+        request.input('fabricante', sql.NVarChar, "");
       }
 
       request.execute('CARS__insert', function(err, recordsets, returnValue, affected) {
@@ -177,31 +177,31 @@ app.post('/add_element', function (req, res) {
 app.post('/list_elements', function(req,res){
   var request = new sql.Request();
     if(req.body.marca){
-      request.input('marca', sql.NVarChar, req.body.marca);
+      request.input('marca', sql.NVarChar, req.body.marca.toUpperCase());
     }
     else{
-      request.input('modelo', sql.NVarChar, null);
+      request.input('marca', sql.NVarChar, "");
     }
 
     if(req.body.modelo){
-      request.input('modelo', sql.NVarChar, req.body.modelo);
+      request.input('modelo', sql.NVarChar, req.body.modelo.toUpperCase());
     }
     else{
-      request.input('modelo', sql.NVarChar, null);
+      request.input('modelo', sql.NVarChar, "");
     }    
 
     if(req.body.year){
-      request.input('year', sql.Int, req.body.year);
+      request.input('year', sql.NVarChar, req.body.year.toUpperCase());
     }
     else{
-      request.input('year', sql.Int, null);
+      request.input('year', sql.NVarChar, "");
     }
       
     if(req.body.nacionalidad_coche){
-      request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche);
+      request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche.toUpperCase());
     }
     else{
-      request.input('nacionalidad_coche', sql.NVarChar, null);
+      request.input('nacionalidad_coche', sql.NVarChar, "");
     }
 
     if(req.body.tipo1){
@@ -226,66 +226,66 @@ app.post('/list_elements', function(req,res){
     }
 
     if(req.body.campeonato){
-        request.input('campeonato', sql.NVarChar, req.body.campeonato);
+        request.input('campeonato', sql.NVarChar, req.body.campeonato.toUpperCase());
     }
     else{
-      request.input('campeonato', sql.NVarChar, null);
+      request.input('campeonato', sql.NVarChar, "");
     }
 
     if(req.body.competicion){
-        request.input('competicion', sql.NVarChar, req.body.competicion);
+        request.input('competicion', sql.NVarChar, req.body.competicion.toUpperCase());
       }
     else{
-      request.input('competicion', sql.NVarChar, null);
+      request.input('competicion', sql.NVarChar, "");
     }
 
     if(req.body.categoria){
-      request.input('categoria', sql.NVarChar, req.body.categoria);
+      request.input('categoria', sql.NVarChar, req.body.categoria.toUpperCase());
     }
     else{
-      request.input('categoria', sql.NVarChar, null);
+      request.input('categoria', sql.NVarChar, "");
     }
       
     if(req.body.piloto){
-       request.input('piloto', sql.NVarChar, req.body.piloto);
+       request.input('piloto', sql.NVarChar, req.body.piloto.toUpperCase());
     }
     else{
-      request.input('piloto', sql.NVarChar, null);
+      request.input('piloto', sql.NVarChar, "");
     }
 
     if(req.body.nacionalidad_piloto){
-      request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto);
+      request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto.toUpperCase());
     }
     else{
-      request.input('nacionalidad_piloto', sql.NVarChar, null);
+      request.input('nacionalidad_piloto', sql.NVarChar, "");
     }
 
     if(req.body.copiloto){
-      request.input('copiloto', sql.NVarChar, req.body.copiloto);
+      request.input('copiloto', sql.NVarChar, req.body.copiloto.toUpperCase());
     }
     else{
-      request.input('copiloto', sql.NVarChar, null);
+      request.input('copiloto', sql.NVarChar, "");
     }
 
     if(req.body.nacionalidad_copiloto){
-      request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto);
+      request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto.toUpperCase());
     }
     else{
-      request.input('nacionalidad_copiloto', sql.NVarChar, null);
+      request.input('nacionalidad_copiloto', sql.NVarChar, "");
     }
 
     if(req.body.precio){
-      request.input('precio', sql.Int, req.body.precio);
+      request.input('precio', sql.NVarChar, req.body.precio.toUpperCase());
     }
     else{
-      request.input('precio', sql.Int, null);
+      request.input('precio', sql.NVarChar, "");
     }
 
     if(req.body.fabricante){
-        request.input('facbricante', sql.NVarChar, req.body.fabricante);
+        request.input('fabricante', sql.NVarChar, req.body.fabricante.toUpperCase());
     }
     else{
-      request.input('fabricante', sql.NVarChar, null);
+      request.input('fabricante', sql.NVarChar, "");
     }
 
     request.input('desde', sql.NVarChar, req.body.desde);
@@ -296,6 +296,7 @@ app.post('/list_elements', function(req,res){
             //res.status(200).send(recordsets[0]);
           }
           else{
+            console.log(err);
             res.status(400).send(err);
           }
 
@@ -328,27 +329,17 @@ app.post('/delete_element', function (req, res) {
 });
 
 
-app.post('/get_info', function(req, res){
+app.get('/get_info', function(req, res){
   var request = new sql.Request();
-     request.output('total', sql.Int);
-     request.output('rally', sql.Int);
-     request.output('circuito', sql.Int);
-     request.output('calle', sql.Int);
-     request.execute('CARS__delete', function(err, recordsets, returnValue, affected) {
+     request.execute('CARS__get_info', function(err, recordsets, returnValue, affected) {
        if(!err){
 
-         var info = {
-            total : request.parameters.total.value,
-            rally : request.parameters.rally.value,
-            circuito : request.parameters.circuito.value,
-            calle : request.parameters.calle.value
-          }
-
-        console.log(info);
-        //res.status(200).send(info);
+        //console.log(recordsets[0]);
+        res.status(200).send(recordsets[0]);
        }
        else{
-          res.status(400).send(err);
+        console.log(err);
+        res.status(400).send(err);
        }
      });
 });

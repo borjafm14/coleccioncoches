@@ -3,7 +3,7 @@ CREATE TABLE CARS(
  marca NVARCHAR(max) NOT NULL,
  modelo NVARCHAR(max) NOT NULL,
  nacionalidad_coche VARCHAR(40) NULL,
- year INT NULL,
+ year NVARCHAR(4) NULL,
  campeonato NVARCHAR(max) NULL,
  competicion NVARCHAR(max) NULL, 
  categoria NVARCHAR(max) NULL,
@@ -15,7 +15,7 @@ CREATE TABLE CARS(
  enlace_foto NVARCHAR(max) NOT NULL,
  fecha_hora DATETIME NOT NULL DEFAULT (getdate()),
  tipo INT NOT NULL, --1 para rally, 2 para circuito, 3 para calle
- precio INT NULL,
+ precio NVARCHAR(10) NULL,
  fabricante NVARCHAR(50) NULL, --IXO, etc
  CONSTRAINT PK_Coches PRIMARY KEY (id)
 );
@@ -28,7 +28,7 @@ create procedure CARS__insert
 	@marca nvarchar(max),
 	@modelo nvarchar(max),
 	@nacionalidad_coche nvarchar(40) null,
-	@year int null,
+	@year nvarchar(4) null,
 	@enlace_foto nvarchar(max),
 	@tipo int,
 	@campeonato nvarchar(max) null,
@@ -38,7 +38,7 @@ create procedure CARS__insert
 	@nacionalidad_piloto nvarchar(max) null,
 	@copiloto nvarchar(max) null,
 	@nacionalidad_copiloto nvarchar(max) null,
-	@precio int null,
+	@precio nvarchar(10) null,
 	@fabricante nvarchar(50) null,
 	@descripcion nvarchar(max) null
 AS
@@ -65,7 +65,7 @@ CREATE PROCEDURE CARS__list
 	@marca nvarchar(max),
 	@modelo nvarchar(max),
 	@nacionalidad_coche nvarchar(40),
-	@year int,
+	@year nvarchar(4),
 	@tipo1 int, --rally
 	@tipo2 int, --circuito
 	@tipo3 int, --calle
@@ -76,7 +76,7 @@ CREATE PROCEDURE CARS__list
 	@nacionalidad_piloto nvarchar(max),
 	@copiloto nvarchar(max),
 	@nacionalidad_copiloto nvarchar(max),
-	@precio int,
+	@precio nvarchar(10),
 	@fabricante nvarchar(50),
 	@desde nvarchar(20)
 AS
@@ -93,7 +93,7 @@ BEGIN
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year = @year and precio = @precio and fabricante like '%'+@fabricante+'%' 
+					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
 					and fecha_hora > DATEADD(day, -1, GETDATE())
 			END
 		ELSE IF(@desde = 'ultimoMes')
@@ -105,7 +105,7 @@ BEGIN
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year = @year and precio = @precio and fabricante like '%'+@fabricante+'%' 
+					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
 					and fecha_hora > DATEADD(month, -1, GETDATE())
 			END
 		ELSE 
@@ -118,7 +118,7 @@ BEGIN
 					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
 					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
 					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year = @year and precio = @precio and fabricante like '%'+@fabricante+'%' 
+					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
 			END
 
 END
@@ -156,23 +156,15 @@ END
 GO
 
 CREATE PROCEDURE CARS__get_info
-	@total int OUTPUT,
-	@rally int OUTPUT,
-	@circuito int OUTPUT,
-	@calle int OUTPUT
 AS
 BEGIN
-	SELECT * FROM CARS
-	SET @total = @@ROWCOUNT
-
-	SELECT * FROM CARS WHERE tipo = 1
-	SET @rally = @@ROWCOUNT
-
-	SELECT * FROM CARS WHERE tipo = 2
-	SET @circuito = @@ROWCOUNT
-
-	SELECT * FROM CARS WHERE tipo = 3
-	SET @calle = @@ROWCOUNT
+	SELECT COUNT(*) AS 'Total' FROM CARS
+	UNION ALL
+	SELECT COUNT(*) AS 'Rally' FROM CARS WHERE tipo = 1
+	UNION ALL
+	SELECT COUNT(*) AS 'Circuito' FROM CARS WHERE tipo = 2
+	UNION ALL
+	SELECT COUNT(*) AS 'Calle' FROM CARS WHERE tipo = 3
 
 RETURN 200
 END
