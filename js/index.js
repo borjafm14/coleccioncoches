@@ -97,10 +97,7 @@ function searchElements(){
         desde : dsde
     };
 
-      //alert("Tipo 1: " + data.tipo1);
-      //alert("Tipo 2: "+ data.tipo2);
-      //alert("Tipo 3: " + data.tipo3);
-      //alert(data.desde);
+      alert(JSON.stringify(data));
 
 
       $.ajax({
@@ -139,11 +136,8 @@ function list(){
 function getinfo(){
   $.get(rest+"/get_info", function(data, status){
 
-      //data = JSON.parse(data);
-      //size = Object.keys(data).length;
-
-      //$("#info").empty();
-      //$('#info').append('<span>Coches totales: '+data.total+'</span><br><span>Coches de rally: '+data.rally+'</span><br><span>Cohes de circuito: '+data.circuito+'</span><br><span>Coches de calle: '+data.calle+'</span>');
+      $('#info').empty();
+      $('#info').append('<span>Coches totales: '+JSON.stringify(data[0].Total)+'</span><br><span>Coches de rally: '+JSON.stringify(data[1].Total)+'</span><br><span>Cohes de circuito: '+JSON.stringify(data[2].Total)+'</span><br><span>Coches de calle: '+JSON.stringify(data[3].Total)+'</span>');
 
   });
 }

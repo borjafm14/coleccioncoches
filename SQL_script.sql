@@ -121,6 +121,8 @@ BEGIN
 					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
 			END
 
+	RETURN 200
+
 END
 
 GO

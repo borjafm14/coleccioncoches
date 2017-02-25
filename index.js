@@ -175,34 +175,13 @@ app.post('/add_element', function (req, res) {
 
 
 app.post('/list_elements', function(req,res){
+  console.log(JSON.stringify(req.body));
   var request = new sql.Request();
-    if(req.body.marca){
-      request.input('marca', sql.NVarChar, req.body.marca.toUpperCase());
-    }
-    else{
-      request.input('marca', sql.NVarChar, "");
-    }
-
-    if(req.body.modelo){
-      request.input('modelo', sql.NVarChar, req.body.modelo.toUpperCase());
-    }
-    else{
-      request.input('modelo', sql.NVarChar, "");
-    }    
-
-    if(req.body.year){
-      request.input('year', sql.NVarChar, req.body.year.toUpperCase());
-    }
-    else{
-      request.input('year', sql.NVarChar, "");
-    }
-      
-    if(req.body.nacionalidad_coche){
-      request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche.toUpperCase());
-    }
-    else{
-      request.input('nacionalidad_coche', sql.NVarChar, "");
-    }
+    
+    request.input('marca', sql.NVarChar, req.body.marca.toUpperCase());
+    request.input('modelo', sql.NVarChar, req.body.modelo.toUpperCase());
+    request.input('year', sql.NVarChar, req.body.year.toUpperCase());
+    request.input('nacionalidad_coche', sql.NVarChar, req.body.nacionalidad_coche.toUpperCase());
 
     if(req.body.tipo1){
       request.input('tipo1', sql.Int, 1);
@@ -225,74 +204,20 @@ app.post('/list_elements', function(req,res){
       request.input('tipo3', sql.Int, null);
     }
 
-    if(req.body.campeonato){
-        request.input('campeonato', sql.NVarChar, req.body.campeonato.toUpperCase());
-    }
-    else{
-      request.input('campeonato', sql.NVarChar, "");
-    }
-
-    if(req.body.competicion){
-        request.input('competicion', sql.NVarChar, req.body.competicion.toUpperCase());
-      }
-    else{
-      request.input('competicion', sql.NVarChar, "");
-    }
-
-    if(req.body.categoria){
-      request.input('categoria', sql.NVarChar, req.body.categoria.toUpperCase());
-    }
-    else{
-      request.input('categoria', sql.NVarChar, "");
-    }
-      
-    if(req.body.piloto){
-       request.input('piloto', sql.NVarChar, req.body.piloto.toUpperCase());
-    }
-    else{
-      request.input('piloto', sql.NVarChar, "");
-    }
-
-    if(req.body.nacionalidad_piloto){
-      request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto.toUpperCase());
-    }
-    else{
-      request.input('nacionalidad_piloto', sql.NVarChar, "");
-    }
-
-    if(req.body.copiloto){
-      request.input('copiloto', sql.NVarChar, req.body.copiloto.toUpperCase());
-    }
-    else{
-      request.input('copiloto', sql.NVarChar, "");
-    }
-
-    if(req.body.nacionalidad_copiloto){
-      request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto.toUpperCase());
-    }
-    else{
-      request.input('nacionalidad_copiloto', sql.NVarChar, "");
-    }
-
-    if(req.body.precio){
-      request.input('precio', sql.NVarChar, req.body.precio.toUpperCase());
-    }
-    else{
-      request.input('precio', sql.NVarChar, "");
-    }
-
-    if(req.body.fabricante){
-        request.input('fabricante', sql.NVarChar, req.body.fabricante.toUpperCase());
-    }
-    else{
-      request.input('fabricante', sql.NVarChar, "");
-    }
-
+    request.input('campeonato', sql.NVarChar, req.body.campeonato.toUpperCase());
+    request.input('competicion', sql.NVarChar, req.body.competicion.toUpperCase());
+    request.input('categoria', sql.NVarChar, req.body.categoria.toUpperCase());
+    request.input('piloto', sql.NVarChar, req.body.piloto.toUpperCase());
+    request.input('nacionalidad_piloto', sql.NVarChar, req.body.nacionalidad_piloto.toUpperCase());
+    request.input('copiloto', sql.NVarChar, req.body.copiloto.toUpperCase());
+    request.input('nacionalidad_copiloto', sql.NVarChar, req.body.nacionalidad_copiloto.toUpperCase());
+    request.input('precio', sql.NVarChar, req.body.precio.toUpperCase());
+    request.input('fabricante', sql.NVarChar, req.body.fabricante.toUpperCase());
     request.input('desde', sql.NVarChar, req.body.desde);
 
     request.execute('CARS__list', function(err, recordsets, returnValue, affected) {
           if(!err){
-            console.log(recordsets);
+            //console.log(recordsets);
             //res.status(200).send(recordsets[0]);
           }
           else{
