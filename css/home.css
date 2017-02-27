@@ -38,8 +38,8 @@
     margin-bottom:10px;
   }
 
-  .card-image img{
-    max-height:270px;
+  .card .card-image img {
+    width: 100px;
   }
 
   .row{
