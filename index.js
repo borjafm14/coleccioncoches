@@ -3,18 +3,16 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var server = require('http').Server(app);
-var sql = require('mssql');
+var sql = require('mysql');
 
 var vars = {
-   	//domain:'https://coleccioncoches.azurewebsites.net/',
    	server_port: 8080,
   	sql: null,
   	sql_config : {
-    	user: 'borjafm14',
-    	password: 'Iverson3$',
-    	server: 'coches.database.windows.net',
-    	database: 'COCHES',
-    	options: { encrypt: true /* Use this if you're on Windows Azure */ }
+      host: 'localhost',
+    	user: 'MySql',
+    	password: '891995',
+    	database: 'coches',
   	}
 
 }
@@ -40,17 +38,16 @@ app.use(express.static('../coleccioncoches')); //Static server of the interface
 
 app.get('/list_last_elements', function (req, res) {
     //console.log("Entro en list_last_elements");
-   var request = new sql.Request();
-   request.execute('CARS__list_last', function(err, recordsets, returnValue, affected) {
 
-     if(!err){
-       //console.log(recordsets[0]);
-       res.status(200).send(JSON.stringify(recordsets[0]));
-     }else{
-        console.log(err);
-       res.status(400).send(err);
-     }
-   });
+    connection.query('CALL CARS__list_last', function (error, results, fields) {
+      if(!error){
+       res.status(200).send(JSON.stringify(results[0].solution));
+      }
+      else{
+        console.log(error);
+        res.status(400).send(err);
+      }
+    });
 
 });
 

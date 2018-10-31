@@ -1,174 +1,186 @@
+CREATE DATABASE coches;
+USE coches;
+
 CREATE TABLE CARS(
- id INT NOT NULL IDENTITY (1, 1),
- marca NVARCHAR(max) NOT NULL,
- modelo NVARCHAR(max) NOT NULL,
- nacionalidad_coche VARCHAR(40) NULL,
- year NVARCHAR(4) NULL,
- campeonato NVARCHAR(max) NULL,
- competicion NVARCHAR(max) NULL, 
- categoria NVARCHAR(max) NULL,
- piloto NVARCHAR(max) NULL,
- nacionalidad_piloto NVARCHAR(max) NULL,
- copiloto NVARCHAR(max) NULL,
- nacionalidad_copiloto NVARCHAR(max) NULL,
- descripcion NVARCHAR(max) NULL,
- enlace_foto NVARCHAR(max) NOT NULL,
- fecha_hora DATETIME NOT NULL DEFAULT (getdate()),
- tipo INT NOT NULL, --1 para rally, 2 para circuito, 3 para calle
+ id INT NOT NULL auto_increment,
+ marca nvarchar(100) NOT NULL,
+ modelo nvarchar(100) NOT NULL,
+ nacionalidad_coche nvarchar(40) NULL,
+ year_coche nvarchar(4) NULL,
+ campeonato nvarchar(100) NULL,
+ competicion nvarchar(100) NULL, 
+ categoria nvarchar(100) NULL,
+ piloto nvarchar(100) NULL,
+ nacionalidad_piloto nvarchar(100) NULL,
+ copiloto nvarchar(100) NULL,
+ nacionalidad_copiloto nvarchar(100) NULL,
+ descripcion nvarchar(200) NULL,
+ foto longtext NOT NULL,
+ fecha_hora datetime NOT NULL DEFAULT NOW(),
+ tipo INT NOT NULL, #1 para rally, 2 para circuito, 3 para calle
  precio NVARCHAR(10) NULL,
- fabricante NVARCHAR(50) NULL, --IXO, etc
+ fabricante NVARCHAR(50) NULL,
  CONSTRAINT PK_Coches PRIMARY KEY (id)
 );
 
-GO
 
 
 
+
+DELIMITER //
 create procedure CARS__insert
-	@marca nvarchar(max),
-	@modelo nvarchar(max),
-	@nacionalidad_coche nvarchar(40) null,
-	@year nvarchar(4) null,
-	@enlace_foto nvarchar(max),
-	@tipo int,
-	@campeonato nvarchar(max) null,
-	@competicion nvarchar(max) null,
-	@categoria nvarchar(max) null,
-	@piloto nvarchar(max) null,
-	@nacionalidad_piloto nvarchar(max) null,
-	@copiloto nvarchar(max) null,
-	@nacionalidad_copiloto nvarchar(max) null,
-	@precio nvarchar(10) null,
-	@fabricante nvarchar(50) null,
-	@descripcion nvarchar(max) null
-AS
+	(in
+		marca nvarchar(100),
+		modelo nvarchar(100),
+		nacionalidad_coche nvarchar(40),
+		year_coche nvarchar(4),
+		foto longtext,
+		tipo int,
+		campeonato nvarchar(100),
+		competicion nvarchar(100),
+		categoria nvarchar(100),
+		piloto nvarchar(100),
+		nacionalidad_piloto nvarchar(100),
+		copiloto nvarchar(100),
+		nacionalidad_copiloto nvarchar(100),
+		precio nvarchar(10),
+		fabricante nvarchar(50),
+		descripcion nvarchar(200),
+	out
+		proc_return int
+	)
 BEGIN
-INSERT INTO [dbo].[CARS](
-marca, modelo, nacionalidad_coche, year, enlace_foto, tipo, campeonato, competicion, categoria, piloto, nacionalidad_piloto, copiloto, nacionalidad_copiloto, precio, fabricante, descripcion
+INSERT INTO CARS(
+marca, modelo, nacionalidad_coche, year_coche, foto, tipo, campeonato, competicion, categoria, piloto, nacionalidad_piloto, copiloto, nacionalidad_copiloto, precio, fabricante, descripcion
 )
 VALUES
-(@marca, @modelo, @nacionalidad_coche, @year, @enlace_foto, @tipo, @campeonato, @competicion, @categoria, @piloto, @nacionalidad_piloto, @copiloto, @nacionalidad_copiloto, @precio, @fabricante, @descripcion)
+(@marca, @modelo, @nacionalidad_coche, @year_coche, @foto, @tipo, @campeonato, @competicion, @categoria, @piloto, @nacionalidad_piloto, @copiloto, @nacionalidad_copiloto, @precio, @fabricante, @descripcion);
 
 SELECT * FROM CARS WHERE ID = SCOPE_IDENTITY();
 
-RETURN 200
+SET @proc_return = 200;
 
-END
-
-GO
-
+END //
+DELIMITER ;
 
 
 
 
+
+DELIMITER //
 CREATE PROCEDURE CARS__list
-	@marca nvarchar(max),
-	@modelo nvarchar(max),
-	@nacionalidad_coche nvarchar(40),
-	@year nvarchar(4),
-	@tipo1 int, --rally
-	@tipo2 int, --circuito
-	@tipo3 int, --calle
-	@campeonato nvarchar(max),
-	@competicion nvarchar(max),
-	@categoria nvarchar(max),
-	@piloto nvarchar(max),
-	@nacionalidad_piloto nvarchar(max),
-	@copiloto nvarchar(max),
-	@nacionalidad_copiloto nvarchar(max),
-	@precio nvarchar(10),
-	@fabricante nvarchar(50),
-	@desde nvarchar(20)
-AS
+	(in
+		marca nvarchar(100),
+		modelo nvarchar(100),
+		nacionalidad_coche nvarchar(40),
+		year nvarchar(4),
+		tipo1 int, #rally
+		tipo2 int, #circuito
+		tipo3 int, #calle
+		campeonato nvarchar(100),
+		competicion nvarchar(100),
+		categoria nvarchar(100),
+		piloto nvarchar(100),
+		nacionalidad_piloto nvarchar(100),
+		copiloto nvarchar(100),
+		nacionalidad_copiloto nvarchar(100),
+		precio nvarchar(10),
+		fabricante nvarchar(50),
+		desde nvarchar(20),
+	out
+		proc_return int
+	)
 BEGIN
 
 			
-		IF(@desde = 'hoy')
-			BEGIN
+		IF @desde = 'hoy' THEN
 				
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%' 
-					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
-					and campeonato like '%'+@campeonato+'%' 
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(day, -1, GETDATE())
-			END
-		ELSE IF(@desde = 'ultimoMes')
-			BEGIN
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%'
-					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
-					and campeonato like '%'+@campeonato+'%'  
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
-					and fecha_hora > DATEADD(month, -1, GETDATE())
-			END
+			select * from CARS where marca like CONCAT('%',@marca,'%') and modelo like CONCAT('%',@modelo,'%')
+				and nacionalidad_coche like CONCAT('%',@nacionalidad_coche,'%')
+				and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
+				and campeonato like CONCAT('%',@campeonato,'%')  
+				and competicion like CONCAT('%',@competicion,'%') and categoria like CONCAT('%',@categoria,'%')
+				and piloto like CONCAT('%',@piloto,'%') and nacionalidad_piloto like CONCAT('%',@nacionalidad_piloto,'%')
+				and copiloto like CONCAT('%',@copiloto,'%') and nacionalidad_copiloto like CONCAT('%',@nacionalidad_copiloto,'%')
+				and year_coche like CONCAT('%',@year_coche,'%') and precio like CONCAT('%',@precio,'%') and fabricante like CONCAT('%',@fabricante,'%') 
+				and fecha_hora > DATEADD(day, -1, NOW());
+
+		ELSEIF @desde = 'ultimoMes' THEN
+        
+			select * from CARS where marca like CONCAT('%',@marca,'%') and modelo like CONCAT('%',@modelo,'%')
+				and nacionalidad_coche like CONCAT('%',@nacionalidad_coche,'%')
+				and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
+				and campeonato like CONCAT('%',@campeonato,'%')  
+				and competicion like CONCAT('%',@competicion,'%') and categoria like CONCAT('%',@categoria,'%')
+				and piloto like CONCAT('%',@piloto,'%') and nacionalidad_piloto like CONCAT('%',@nacionalidad_piloto,'%')
+				and copiloto like CONCAT('%',@copiloto,'%') and nacionalidad_copiloto like CONCAT('%',@nacionalidad_copiloto,'%')
+				and year_coche like CONCAT('%',@year_coche,'%') and precio like CONCAT('%',@precio,'%') and fabricante like CONCAT('%',@fabricante,'%') 
+				and fecha_hora > DATEADD(month, -1, NOW());
+			
 		ELSE 
-			--siempre
-			BEGIN
-				select * from CARS where marca like '%'+@marca+'%' and modelo like '%'+@modelo+'%'
-					and nacionalidad_coche like '%'+@nacionalidad_coche+'%'
-					and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
-					and campeonato like '%'+@campeonato+'%'  
-					and competicion like '%'+@competicion+'%' and categoria like '%'+@categoria+'%'
-					and piloto like '%'+@piloto+'%' and nacionalidad_piloto like '%'+@nacionalidad_piloto+'%' 
-					and copiloto like '%'+@copiloto+'%' and nacionalidad_copiloto like '%'+@nacionalidad_copiloto+'%'
-					and year like '%'+@year+'%' and precio like '%'+@precio+'%' and fabricante like '%'+@fabricante+'%' 
-			END
+			#siempre
+			select * from CARS where marca like CONCAT('%',@marca,'%') and modelo like CONCAT('%',@modelo,'%')
+				and nacionalidad_coche like CONCAT('%',@nacionalidad_coche,'%')
+				and (tipo = @tipo1 or tipo = @tipo2 or tipo = @tipo3)
+				and campeonato like CONCAT('%',@campeonato,'%')  
+				and competicion like CONCAT('%',@competicion,'%') and categoria like CONCAT('%',@categoria,'%')
+				and piloto like CONCAT('%',@piloto,'%') and nacionalidad_piloto like CONCAT('%',@nacionalidad_piloto,'%') 
+				and copiloto like CONCAT('%',@copiloto,'%') and nacionalidad_copiloto like CONCAT('%',@nacionalidad_copiloto,'%')
+				and year_coche like CONCAT('%',@year_coche,'%') and precio like CONCAT('%',@precio,'%') and fabricante like CONCAT('%',@fabricante,'%');
+		END IF;
 
-	RETURN 200
+	SET @proc_return = 200;
 
-END
-
-GO
+END //
+DELIMITER ;
 
 
 
 
+DELIMITER //
 CREATE PROCEDURE CARS__delete
-	@ID int
-AS
+	(in
+		ID int,
+	out
+		proc_return int
+	)
 BEGIN
 
-	DELETE FROM CARS WHERE ID = @ID
+	DELETE FROM CARS WHERE ID = @ID;
 
-RETURN 200
+    SET @proc_return = 200;
 
-END
-
-GO
-
+END //
+DELIMITER ;
 
 
+
+DELIMITER //
 CREATE PROCEDURE CARS__list_last
-AS
+	(out proc_return int)
 BEGIN
 
-	SELECT TOP(10) * FROM CARS ORDER BY ID DESC
+	SELECT * FROM CARS ORDER BY ID DESC LIMIT 10;
 
-RETURN 200
+    SET @proc_return = 200;
 
-END
+END //
+DELIMITER ;
 
-GO
-
+DELIMITER //
 CREATE PROCEDURE CARS__get_info
-AS
+	(out proc_return int)
 BEGIN
+
 	SELECT COUNT(*) AS 'Total' FROM CARS
 	UNION ALL
 	SELECT COUNT(*) AS 'Rally' FROM CARS WHERE tipo = 1
 	UNION ALL
 	SELECT COUNT(*) AS 'Circuito' FROM CARS WHERE tipo = 2
 	UNION ALL
-	SELECT COUNT(*) AS 'Calle' FROM CARS WHERE tipo = 3
+	SELECT COUNT(*) AS 'Calle' FROM CARS WHERE tipo = 3;
 
-RETURN 200
-END
+    SET @proc_return = 200;
 
-GO
+END //
+DELIMITER ;
