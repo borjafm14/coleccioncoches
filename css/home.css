@@ -14,7 +14,9 @@
     margin:0px;
   }
 
-
+  video {
+    max-width: 30%;
+  }
 
   #filters{
     margin: 20px 0;
